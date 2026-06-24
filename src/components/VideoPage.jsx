@@ -1,9 +1,7 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
-import ReactPlayer from "react-player";
+import React from "react";
 import Slide from "react-reveal/Slide";
 export default function VideoPage() {
-    useEffect(() => {}, []);
     return (
         <div className="  translate-y-[-130px] md:translate-y-0 py-10 md:py-auto overflow-x-hidden ">
             <Slide bottom>
@@ -16,7 +14,7 @@ export default function VideoPage() {
                     <div className=" flex justify-center  shadow-[3px_3px_30px_3px] shadow-blue-600">
                         <video loop muted autoPlay className="">
                             <source
-                                src="/videos/quick draw.mp4"
+                                src="/videos/quick-draw.mp4"
                                 type="video/mp4"
                             />
                         </video>

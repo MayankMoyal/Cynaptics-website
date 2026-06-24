@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import "./globals.css";
-
+import { Roboto_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
-
 import Footer from "@/components/Footer";
+
+const robotoMono = Roboto_Mono({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
     title: {
@@ -15,7 +16,7 @@ export const metadata = {
         "Next.js",
         "React",
         "Javascript",
-        "Artificial Intilligence",
+        "Artificial Intelligence",
         "Machine Learning",
         "Indian Institute of Technology Indore",
         "IIT INDORE",
@@ -27,11 +28,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" className={robotoMono.className}>
             <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-                <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
                 <meta
                     property="twitter:image"
                     content={`https://avatars.githubusercontent.com/u/62688806?s=200&v=4`}

@@ -49,7 +49,7 @@ export default function LoadingBar() {
                             margin: auto;
                             max-width: 100%;
                             position: absolute;
-                            background-color: ;
+                            background-color: transparent;
                             border-radius: 0vw 10vw 0vw 10vw;
                             box-shadow: inset 0vw 0vw 0vw 0.1vw #e645d0,
                                 0vw 0vw 1.5vw 0vw #e645d0;
@@ -160,7 +160,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -181,7 +181,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -202,7 +202,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -223,7 +223,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -244,7 +244,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -265,7 +265,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -286,7 +286,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -307,7 +307,7 @@ export default function LoadingBar() {
                             100% {
                             }
                             50% {
-                                background: ;
+                                background: transparent;
                                 box-shadow: inset 0vw 0vw 0vw 0.1vw #17e1e6,
                                     0vw 0vw 1.5vw 0vw #17e1e6;
                             }
@@ -333,13 +333,10 @@ export default function LoadingBar() {
                         }
 
                         .progress {
-                            animation: progress 15s ease;
-                            -moz-animation: progress 15s ease;
-                            /* Firefox */
-                            -webkit-animation: progress 15s ease;
-                            /* Safari and Chrome */
-                            -o-animation: progress 15s ease;
-                            /* Opera */
+                            animation: progress 3s ease;
+                            -webkit-animation: progress 3s ease;
+                            -moz-animation: progress 3s ease;
+                            -o-animation: progress 3s ease;
                         }
 
                         @keyframes progress {
@@ -386,13 +383,10 @@ export default function LoadingBar() {
                         }
 
                         .out {
-                            animation: out 2s 15s ease;
-                            -moz-animation: out 2s 15s ease;
-                            /* Firefox */
-                            -webkit-animation: out 2s 15s ease;
-                            /* Safari and Chrome */
-                            -o-animation: out 2s 15s ease;
-                            /* Opera */
+                            animation: out 2s 3s ease;
+                            -webkit-animation: out 2s 3s ease;
+                            -moz-animation: out 2s 3s ease;
+                            -o-animation: out 2s 3s ease;
                         }
 
                         @keyframes out {
