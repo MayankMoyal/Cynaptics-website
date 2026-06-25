@@ -1,34 +1,41 @@
-import { supabase } from "@/lib/supabaseClient";
+"use client";
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebaseClient";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import Link from "next/link";
 
-export const revalidate = 0;
+export default function BlogPage() {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-export default async function BlogPage() {
-    const { data: posts, error } = await supabase
-        .from("blog_posts")
-        .select(`id, title, created_at, blog_blocks ( type, content, position )`)
-        .eq("status", "approved")
-        .order("created_at", { ascending: false });
+    useEffect(() => {
+        async function fetchPosts() {
+            const q = query(
+                collection(db, "blog_posts"),
+                where("status", "==", "approved"),
+                orderBy("created_at", "desc")
+            );
+            const snapshot = await getDocs(q);
+            const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+            setPosts(data);
+            setLoading(false);
+        }
+        fetchPosts();
+    }, []);
 
-    if (error) console.error(error);
+    if (loading) return <div className="min-h-screen flex items-center justify-center text-white">Loading...</div>;
 
     return (
         <div className="min-h-screen px-5 py-10 md:px-20 text-white">
-            <h1 className="text-center font-bold text-2xl md:text-5xl mb-16">
-                Blogs
-            </h1>
+            <h1 className="text-center font-bold text-2xl md:text-5xl mb-16">Blogs</h1>
 
-            {(!posts || posts.length === 0) && (
-                <p className="text-center text-gray-400">
-                    No blog posts yet. Check back soon!
-                </p>
+            {posts.length === 0 && (
+                <p className="text-center text-gray-400">No blog posts yet. Check back soon!</p>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                {posts?.map((post) => {
-                    const sortedBlocks = [...(post.blog_blocks || [])].sort(
-                        (a, b) => a.position - b.position
-                    );
+                {posts.map((post) => {
+                    const sortedBlocks = [...(post.blocks || [])].sort((a, b) => a.position - b.position);
                     const thumbnail = sortedBlocks.find((b) => b.type === "image");
 
                     return (
@@ -38,9 +45,7 @@ export default async function BlogPage() {
                                     {thumbnail ? (
                                         <img src={thumbnail.content} alt={post.title} className="w-full h-full object-cover" />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-gray-500">
-                                            No image
-                                        </div>
+                                        <div className="w-full h-full flex items-center justify-center text-gray-500">No image</div>
                                     )}
                                 </div>
                                 <div className="p-4">
