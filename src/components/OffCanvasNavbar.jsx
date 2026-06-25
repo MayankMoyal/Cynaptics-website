@@ -106,6 +106,19 @@ export default function OffCanvasNavbar() {
                                     }, 200);
                                 }}
                                 className=""
+                                href="/BlogPage"
+                            >
+                                <li className="my-2 mx-auto border-2 hover:invert transition-all fade-in-out focus:invert p-2 rounded-md text-center w-[200px] bg-black text-white">
+                                    Blogs
+                                </li>
+                            </Link>
+                            <Link
+                                onClick={() => {
+                                    setTimeout(() => {
+                                        handleToggleNavbar();
+                                    }, 200);
+                                }}
+                                className=""
                                 href="/AboutUsPage"
                             >
                                 <li className="my-2 mx-auto border-2 hover:invert transition-all fade-in-out focus:invert p-2 rounded-md text-center w-[200px] bg-black text-white">
