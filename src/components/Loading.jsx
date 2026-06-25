@@ -314,12 +314,12 @@ export default function LoadingBar() {
                         }
 
                         .container {
-                            animation: container 5s linear infinite;
-                            -moz-animation: container 5s linear infinite;
+                            animation: container 2s linear infinite;
+                            -moz-animation: container 2s linear infinite;
                             /* Firefox */
-                            -webkit-animation: container 5s linear infinite;
+                            -webkit-animation: container 2s linear infinite;
                             /* Safari and Chrome */
-                            -o-animation: container 5s linear infinite;
+                            -o-animation: container 2s linear infinite;
                             /* Opera */
                         }
 
@@ -333,10 +333,10 @@ export default function LoadingBar() {
                         }
 
                         .progress {
-                            animation: progress 3s ease;
-                            -webkit-animation: progress 3s ease;
-                            -moz-animation: progress 3s ease;
-                            -o-animation: progress 3s ease;
+                            animation: progress 2s ease;
+                            -webkit-animation: progress 2s ease;
+                            -moz-animation: progress 2s ease;
+                            -o-animation: progress 2s ease;
                         }
 
                         @keyframes progress {
@@ -364,12 +364,12 @@ export default function LoadingBar() {
                         }
 
                         .fade-in {
-                            animation: fade-in 2s ease;
-                            -moz-animation: fade-in 2s ease;
+                            animation: fade-in 0.5s ease;
+                            -moz-animation: fade-in 0.5s ease;
                             /* Firefox */
-                            -webkit-animation: fade-in 2s ease;
+                            -webkit-animation: fade-in 0.5s ease;
                             /* Safari and Chrome */
-                            -o-animation: fade-in 2s ease;
+                            -o-animation: fade-in 0.5s ease;
                             /* Opera */
                         }
 
@@ -383,10 +383,10 @@ export default function LoadingBar() {
                         }
 
                         .out {
-                            animation: out 2s 3s ease;
-                            -webkit-animation: out 2s 3s ease;
-                            -moz-animation: out 2s 3s ease;
-                            -o-animation: out 2s 3s ease;
+                            animation: out 0.5s 2s ease;
+                            -webkit-animation: out 0.5s 2s ease;
+                            -moz-animation: out 0.5s 2s ease;
+                            -o-animation: out 0.5s 2s ease;
                         }
 
                         @keyframes out {

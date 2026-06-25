@@ -12,7 +12,7 @@ body {
     font-family: 'Roboto Mono', monospace;
     color: #ffffff;
     height: 100%;
-    animation: bg1 ease-in-out infinite 20000ms;
+    background: #000510;
 }
 
 #PongGamePage {
