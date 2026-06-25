@@ -17,7 +17,7 @@ export default async function BlogsPage() {
   const [featured, ...rest] = posts;
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#050505]">
       <BlogsHero />
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 pb-28">
@@ -54,6 +54,6 @@ export default async function BlogsPage() {
           </>
         )}
       </div>
-    </main>
+    </div>
   );
 }

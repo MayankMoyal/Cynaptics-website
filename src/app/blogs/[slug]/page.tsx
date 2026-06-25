@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const remarkGfm = require("remark-gfm");
+import remarkGfm from "remark-gfm";
 
 import { getPublishedPosts, getPostBySlug, fetchMdxFromS3 } from "@/lib/mdx";
 import { mdxComponents } from "./_components/MdxComponents";
@@ -78,7 +77,7 @@ export default async function BlogPostPage({
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* ── Cinematic header ── */}
       <PostHero post={post} />
 
@@ -92,7 +91,7 @@ export default async function BlogPostPage({
         )}
 
         {/* MDX content — rendered entirely server-side */}
-        <div className="mdx-content">
+        <div className="prose prose-invert prose-cyan max-w-none">
           <MDXRemote
             source={mdxSource}
             components={mdxComponents}
@@ -132,6 +131,6 @@ export default async function BlogPostPage({
           </div>
         </footer>
       </article>
-    </main>
+    </div>
   );
 }

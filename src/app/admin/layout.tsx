@@ -44,7 +44,7 @@ export default async function AdminLayout({
 
   // 4. Authorized — render the admin shell
   return (
-    <AdminShell session={session}>
+    <AdminShell>
       {children}
     </AdminShell>
   );
