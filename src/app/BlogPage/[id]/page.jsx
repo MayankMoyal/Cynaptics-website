@@ -6,7 +6,7 @@ import Link from "next/link";
 import { use } from "react";
 
 export default function BlogPostPage({ params }) {
-    const { id } = use(params);
+    const { id } = params;
     const [post, setPost] = useState(null);
     const [notFound, setNotFound] = useState(false);
 

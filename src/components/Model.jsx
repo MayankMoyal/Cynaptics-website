@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useLoader } from "@react-three/fiber";
 import { Canvas } from "@react-three/fiber";
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, memo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import React from "react";
@@ -115,49 +115,53 @@ function RotatingFBX({ url }) {
   );
 }
 
-function BackgroundParticles() {
-  const particleCount = 20000;
-  const positionArray = new Float32Array(particleCount * 3);
+const BackgroundParticles = memo(function BackgroundParticles() {
+  const particleCount = 1500;
+  
+  const { geometry, material } = useMemo(() => {
+    const positionArray = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i++) {
+      positionArray[i] = (Math.random() - 0.5) * 1000;
+    }
 
-  for (let i = 0; i < particleCount * 3; i++) {
-    positionArray[i] = (Math.random() - 0.5) * 1000;
-  }
+    const bufferGeometry = new THREE.BufferGeometry();
+    bufferGeometry.setAttribute(
+      "position",
+      new THREE.BufferAttribute(positionArray, 3)
+    );
 
-  const bufferGeometry = new THREE.BufferGeometry();
-  bufferGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(positionArray, 3)
-  );
+    const mat = new THREE.PointsMaterial({
+      size: 2,
+      sizeAttenuation: true,
+      color: "blue",
+      transparent: false,
+      opacity: 1,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      map: new THREE.TextureLoader().load(
+        "https://threejs.org/examples/textures/sprites/disc.png"
+      ),
+      alphaTest: 0.5,
+    });
 
-  const material = new THREE.PointsMaterial({
-    size: 2,
-    sizeAttenuation: true,
-    color: "blue",
-    transparent: false,
-    opacity: 1,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    map: new THREE.TextureLoader().load(
-      "https://threejs.org/examples/textures/sprites/disc.png"
-    ),
-    alphaTest: 0.5,
-  });
+    return { geometry: bufferGeometry, material: mat };
+  }, []);
 
-  return <points geometry={bufferGeometry} material={material} />;
-}
+  return <points geometry={geometry} material={material} />;
+});
 
 function Model() {
   return (
     <Canvas
       className=" z-[-1] !h-[80%] shadow-[3px_3px_30px_3px] shadow-blue-600 lg:!h-[89%]  w-full  "
+      dpr={[1, Math.min(window.devicePixelRatio, 1.5)]}
+      frameloop="demand"
       gl={{
-        // Enable depth buffer for shadows
         depth: true,
-        // Enable alpha blending for transparent materials
         alpha: true,
       }}
-      camera={{ position: [60, 50, 0], near: 0.1, far: 1000 }} // Add near and far properties to fix camera issue
-      backgroundcolor={"#e9e9e9"} // Set background color
+      camera={{ position: [60, 50, 0], near: 0.1, far: 1000 }}
+      backgroundcolor={"#e9e9e9"}
     >
       {/* Add an ambient light to the scene */}
       <ambientLight intensity={1} />

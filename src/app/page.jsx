@@ -1,7 +1,12 @@
 "use client";
+import dynamic from "next/dynamic";
 import VideoPage from "@/components/VideoPage";
 import TextAnimation from "@/components/TextAnimation";
-import Model from "@/components/Model";
+
+const Model = dynamic(() => import("@/components/Model"), {
+  ssr: false,
+  loading: () => <div className="absolute h-full w-full z-[-100] bg-black" />,
+});
 
 export default function Home() {
     return (

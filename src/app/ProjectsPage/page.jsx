@@ -1,12 +1,17 @@
 import React from "react";
 import ProjectCarousel from "@/components/ProjectCarousel";
+import { getProjects } from "@/memberService/projectService";
+
 export const metadata = {
-    title: "Our Projects",
+  title: "Our Projects",
 };
-export default function page() {
-    return (
-        <div>
-            <ProjectCarousel />
-        </div>
-    );
+
+export default async function page() {
+  const projects = await getProjects();
+
+  return (
+    <div>
+      <ProjectCarousel projects={projects} />
+    </div>
+  );
 }
