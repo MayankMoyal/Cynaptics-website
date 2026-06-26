@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/firebaseDb";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function POST(request: Request) {
   try {
@@ -45,6 +45,7 @@ export async function POST(request: Request) {
     revalidatePath("/blogs");
     revalidatePath(`/blogs/${slug}`);
     revalidatePath("/admin");
+    revalidateTag(slug);
 
     return NextResponse.json({ success: true, slug });
   } catch (error) {

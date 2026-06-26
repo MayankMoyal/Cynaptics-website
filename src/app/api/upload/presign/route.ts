@@ -33,7 +33,8 @@ export async function POST(request: Request) {
       if (folder === "posts") {
         objectKey = `${folder}/${slug}.mdx`;
       } else {
-        objectKey = `${folder}/${slug}-${cleanFileName}`;
+        // For images, we drop the filename entirely to ensure overwrites across formats
+        objectKey = `${folder}/${slug}`;
       }
     } else {
       // Fallback to timestamp if no slug provided

@@ -102,6 +102,25 @@ export async function getPostBySlug(
 }
 
 /**
+ * Returns a single post's metadata by slug, regardless of status.
+ * Used for admin previews.
+ */
+export async function getPostBySlugAdmin(
+  slug: string
+): Promise<BlogPostMeta | null> {
+  try {
+    const ref = doc(db, "blog_posts", slug);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return null;
+    const data = snap.data() as Record<string, unknown>;
+    return docToMeta(snap.id, data);
+  } catch (err) {
+    console.error(`[mdx] Failed to fetch admin post "${slug}":`, err);
+    return null;
+  }
+}
+
+/**
  * Returns ALL posts (including drafts) for admin use.
  */
 export async function getAllPostsAdmin(): Promise<BlogPostMeta[]> {
@@ -126,8 +145,12 @@ export async function getAllPostsAdmin(): Promise<BlogPostMeta[]> {
  * Fetches the raw MDX string from a public S3 URL.
  * Results are cached by Next.js fetch for 1 hour (ISR-compatible).
  */
-export async function fetchMdxFromS3(url: string): Promise<string> {
-  const res = await fetch(url, { next: { revalidate: 3600 } });
+export async function fetchMdxFromS3(url: string, slug?: string): Promise<string> {
+  const nextConfig = slug 
+    ? { revalidate: 3600, tags: [slug] } 
+    : { revalidate: 3600 };
+    
+  const res = await fetch(url, { next: nextConfig });
   if (!res.ok) {
     throw new Error(
       `[mdx] S3 fetch failed (${res.status}): ${res.statusText} — ${url}`

@@ -29,7 +29,7 @@ export default function EditForm({ post }: Props) {
   // Notice: We don't auto-generate slug on edit to prevent accidental URL breakage,
   // but if the user wants to change it manually, they can.
   
-  const handleUpload = async (status: "draft" | "published") => {
+  const handleUpload = async (status: "draft" | "published" | "preview") => {
     if (!title || !slug) {
       alert("Title and Slug are required.");
       return;
@@ -38,7 +38,7 @@ export default function EditForm({ post }: Props) {
     try {
       setUploading(true);
       setProgress(10);
-      setStatusMsg("Preparing to update...");
+      setStatusMsg(status === "preview" ? "Preparing Preview..." : "Preparing to update...");
 
       let finalMdxUrl = post.mdxUrl;
       let finalThumbUrl = post.thumbnailUrl;
@@ -81,7 +81,7 @@ export default function EditForm({ post }: Props) {
 
       // 3. Save to Firestore
       setProgress(85);
-      setStatusMsg(`Updating database (${status})...`);
+      setStatusMsg(`Updating database (${status === "preview" ? "draft" : status})...`);
       const tagArray = tags.split(",").map(t => t.trim()).filter(Boolean);
       
       const publishRes = await fetch("/api/blogs/publish", {
@@ -94,17 +94,20 @@ export default function EditForm({ post }: Props) {
           tags: tagArray,
           thumbnailUrl: finalThumbUrl,
           mdxUrl: finalMdxUrl,
-          status,
+          status: status === "preview" ? "draft" : status, // Preview saves as draft
         })
       });
 
       if (!publishRes.ok) throw new Error("Failed to update database");
 
       setProgress(100);
-      setStatusMsg("Done!");
+      setStatusMsg(status === "preview" ? "Opening Preview..." : "Done!");
       
       setTimeout(() => {
-        if (status === "draft") {
+        if (status === "preview") {
+          window.open(`/preview/${slug}`, "_blank");
+          setUploading(false); // Reset so they can continue editing
+        } else if (status === "draft") {
           router.push("/admin");
         } else {
           router.push(`/blogs/${slug}`);
@@ -286,6 +289,13 @@ export default function EditForm({ post }: Props) {
                     className="flex-1 rounded-xl bg-zinc-800 px-4 py-3 text-sm font-medium text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Save Draft
+                  </button>
+                  <button
+                    onClick={() => handleUpload("preview")}
+                    disabled={!title || !slug}
+                    className="flex-1 rounded-xl border border-zinc-700 bg-transparent px-4 py-3 text-sm font-medium text-zinc-400 hover:border-zinc-500 hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Preview
                   </button>
                 </div>
               </>

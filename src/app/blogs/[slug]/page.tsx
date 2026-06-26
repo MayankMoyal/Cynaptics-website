@@ -64,7 +64,7 @@ export default async function BlogPostPage({
   // 2. Fetch raw MDX string from S3
   let mdxSource: string;
   try {
-    mdxSource = await fetchMdxFromS3(post.mdxUrl);
+    mdxSource = await fetchMdxFromS3(post.mdxUrl, params.slug);
   } catch (err) {
     console.error("[BlogPostPage] Could not load MDX content:", err);
     return (
