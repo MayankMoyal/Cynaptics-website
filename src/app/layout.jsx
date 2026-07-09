@@ -3,6 +3,7 @@ import "./globals.css";
 import { Roboto_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AuthProvider from "./_components/AuthProvider";
 
 const robotoMono = Roboto_Mono({ subsets: ["latin"], display: "swap" });
 
@@ -58,10 +59,11 @@ export default function RootLayout({ children }) {
                 <meta property="og:url" content={process.env.SITE_URL} />
             </head>
             <body className={`!z-[1000] !bg-black  `}>
-                
-                <Navbar />
-                <div className="z-[1000] ">{children}</div>
-                <Footer />
+                <AuthProvider>
+                    <Navbar />
+                    <div className="z-[1000] ">{children}</div>
+                    <Footer />
+                </AuthProvider>
             </body>
         </html>
     );
